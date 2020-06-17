@@ -635,6 +635,31 @@ public class SeleniumHelper<T extends WebElement> {
     }
 
     /**
+     * Simulates a drag from source react element and drop to target element
+     * @param source element to start the drag
+     * @param target element to end the drag
+     */
+    public void reactDragAndDrop(WebElement source, WebElement target) {
+        getActions().clickAndHold(source)
+                .moveByOffset(10, 0)
+                .moveToElement(target)
+                .release().perform();
+    }
+
+    /**
+     * Simulates a drag of react element to destination offsets calculated from element center.
+     * @param element element to drag and drop.
+     * @param xOffset horizontal integer offset destination for dropping (calculated from given element center).
+     * @param yOffset vertical integer offset destination for dropping (calculated from given element center).
+     */
+    public void reactDragAndDropToOffsetXY(WebElement element, Integer xOffset, Integer yOffset) {
+        getActions().clickAndHold(element)
+                .moveByOffset(10, 0)
+                .moveByOffset(xOffset - 10, yOffset)
+                .release().perform();
+    }
+
+    /**
      * Simulates a drag from source element and drop to target element. HTML5 draggable-compatible
      * Workaround for https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/3604
      * Uses https://github.com/Photonios/JS-DragAndDrop-Simulator for maximum compatibility
